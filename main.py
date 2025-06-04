@@ -42,7 +42,6 @@ class TarotApp:
         submit_button = ttk.Button(prompt_frame, text="Submit", command=self.handle_prompt)
         submit_button.pack()
 
-
         self.canvas_cards = tk.Canvas(self.root, width=600, height=300, bg="lightcoral")
         self.canvas_cards.create_text(300, 20, text="Drawn Cards", font=("Arial", 16), fill="white")
         self.canvas_interpretation = tk.Canvas(self.root, width=800, height=500, bg="lightblue")
@@ -50,11 +49,11 @@ class TarotApp:
         self.canvas_interpretation.create_text(400, 20, text="Interpretation based on the question", font=("Arial", 16), fill="black")
         self.canvas_interpretation.pack(pady=10)
 
-        # Add a frame for user interaction
+        # Question prompt frame
         self.prompt_frame = tk.Frame(self.root)
         self.prompt_frame.pack(pady=10)
 
-        # Add buttons for interaction
+        # Buttons for interaction
         self.shuffle_button = ttk.Button(self.prompt_frame, text="Shuffle Deck", command=self.shuffle_deck)
         self.shuffle_button.grid(row=0, column=0, padx=10)
 
@@ -119,21 +118,15 @@ class TarotApp:
         x1 = start_x + position * (card_width + spacing)
         y1 = 100
 
-        # Load the card image
         try:
-            img_path = card.img  # Path to the card image
+            img_path = card.img
             img = Image.open(img_path)
-            img = img.resize((card_width, card_height))  # Resize the image
+            img = img.resize((card_width, card_height))
             tk_img = ImageTk.PhotoImage(img)
-
-            # Store the image reference to prevent garbage collection
             self.card_images.append(tk_img)
-
-            # Display the image on the canvas
             self.canvas_cards.create_image(x1, y1, anchor=tk.NW, image=tk_img)
 
         except Exception as e:
-            # If the image fails to load, display a placeholder rectangle
             print(f"Error loading image for {card.name}: {e}")
             self.canvas_cards.create_rectangle(x1, y1, x1 + card_width, y1 + card_height, fill="lightblue", outline="black")
             self.canvas_cards.create_text(x1 + card_width // 2, y1 + 20, text="Image\nNot Found", font=("Arial", 10), fill="black")

@@ -11,10 +11,6 @@ class Card:
         self.keywords = keywords
         self.meanings_light = meanings_light
         self.meanings_shadow = meanings_shadow
-        self.card_width = 100
-        self.card_height = 150
-        self.spacing = 20
-        self.start_x = 50
 
     @classmethod
     def create_card(cls, row, base_img_path):
